@@ -70,7 +70,7 @@ Clonar el repositorio `https://github.com/<github-user>/app-descubre-canarias-bs
 ```bash
 sudo rm -Rf /var/www/html/*
 sudo git clone https://github.com/<github-user>/app-descrubre-canarias-bs /var/www/html/
-sudo chown -R www-data:www-data /var/www/html
+sudo chown -R ubuntu:www-data /var/www/html
 ```
 
 Acceder a la aplicación a través de la URL http://<ip-publica> y comprobar que accedemos a la aplicación:
@@ -84,7 +84,7 @@ Actualizar el repositorio de la instancia EC2 y comprobar que se ven los cambios
 ```bash
 cd /var/www/html/
 sudo git pull
-sudo chown -R www-data:www-data /var/www/html
+sudo chown -R ubuntu:www-data /var/www/html
 ```
 
 Acceder a la aplicación a través de la URL http://<ip-publica> y comprobar que se ven los cambios.
@@ -128,7 +128,7 @@ jobs:
         script: |
           cd /var/www/html/
           sudo git pull origin main
-          sudo chown -R www-data:www-data /var/www/html/
+          sudo chown -R ubuntu:www-data /var/www/html/
 ```
 
 Actualiza en local la aplicación añadiéndole una card bootstrap más y subir los cambios al repositorio.
