@@ -68,8 +68,8 @@ Hacer un fork del repositorio de GitHub a vuestro `https://github.com/jonaygarci
 Clonar el repositorio `https://github.com/<github-user>/app-descubre-canarias-bs` de la aplicación en el directorio `html` de _Nginx_:
 
 ```bash
-sudo rm -Rf /var/www/html/*
-sudo git clone https://github.com/<github-user>/app-descrubre-canarias-bs /var/www/html/
+sudo rm -Rf /var/www/html
+sudo git clone https://github.com/<github-user>/app-descrubre-canarias-bs /var/www/html
 sudo chown -R ubuntu:www-data /var/www/html
 ```
 
@@ -82,7 +82,7 @@ Actualiza en local la aplicación añadiéndole una card bootstrap más y subir 
 Actualizar el repositorio de la instancia EC2 y comprobar que se ven los cambios:
 
 ```bash
-cd /var/www/html/
+cd /var/www/html
 sudo git pull
 sudo chown -R ubuntu:www-data /var/www/html
 ```
@@ -126,9 +126,9 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          cd /var/www/html/
+          cd /var/www/html
           sudo git pull origin main
-          sudo chown -R ubuntu:www-data /var/www/html/
+          sudo chown -R ubuntu:www-data /var/www/html
 ```
 
 Actualiza en local la aplicación añadiéndole una card bootstrap más y subir los cambios al repositorio.
