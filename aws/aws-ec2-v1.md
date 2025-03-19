@@ -78,7 +78,7 @@ Acceder a la aplicación a través de la URL http://<ip-publica> y comprobar que
 
 ### Parte IV
 
-Actualiza en local la aplicación añadiéndole 3 cards bootstrap más y subir los cambios al repositorio.
+Actualiza en local la aplicación añadiéndole una card bootstrap más y subir los cambios al repositorio.
 
 Actualizar el repositorio de la instancia EC2 y comprobar que se ven los cambios:
 
@@ -89,3 +89,49 @@ sudo chown -R www-data:www-data /var/www/html
 ```
 
 Acceder a la aplicación a través de la URL http://<ip-publica> y comprobar que se ven los cambios.
+
+### Parte V
+
+Actualización Automática con GitHub Actions. Para automatizar la actualización en la instancia EC2, agregamos un workflow de GitHub Actions:
+
+Crear un secreto en el repositorio de GitHub:
+
+Ir a Settings → Secrets and variables → Actions → Repository secrets
+
+* Crear un nuevo Repository Secret llamado EC2_SSH_KEY y pegar el contenido de mi-clave.pem.
+* Crear un nuevo Repository Secret llamado EC2_HOST con la dirección IP pública de la instancia ec2.
+* Crear un nuevo Repository Secret llamado EC2_USER con el usuario ubuntu.
+
+Actualiza en local la aplicación creando el archivo .github/workflows/deploy.yml en el repositorio con el siguiente contenido:
+
+```
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd /var/www/html/
+          sudo git pull origin main
+          sudo chown -R www-data:www-data /var/www/html/
+```
+
+Actualiza en local la aplicación añadiéndole una card bootstrap más y subir los cambios al repositorio.
+
+Confirmar que los cambios en el repositorio activan el despliegue automático en la instancia EC2, para ello revisar GitHub Actions.
