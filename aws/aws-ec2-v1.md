@@ -153,9 +153,9 @@ Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comp
 
 Eliminar los siguientes elementos de AWS:
 
-* Instancia EC2 <github-user>-nginx-ec2
-* Security Group <github-user>-nginx-sg
+* Instancia EC2 `<github-user>-nginx-ec2`
+* Security Group `<github-user>-nginx-sg`
 
 Eliminar los siguientes repositorios de GitHub:
 
-* https://github.com/<github-user>/app-descrubre-canarias-bs
+* `https://github.com/<github-user>/app-descrubre-canarias-bs`
