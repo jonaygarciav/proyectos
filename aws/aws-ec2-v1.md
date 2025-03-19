@@ -6,10 +6,9 @@ Crear un instancia EC2 en AWS utilizando la capa gratuilta para poder desplegar 
 
 ## Software
 
-    • AWS EC2
-    • Ubuntu Server 24.04
-    • InfluxDB
-    • Grafana
+* AWS EC2
+* Ubuntu Server 24.04
+* Nginx 
 
 ## Contenido
 
