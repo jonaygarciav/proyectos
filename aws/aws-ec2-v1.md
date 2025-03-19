@@ -65,11 +65,11 @@ sudo systemctl start nginx
 
 Hacer un fork del repositorio de GitHub a vuestro `https://github.com/jonaygarciav/app-descubre-canarias-bs`: ahora tenéis un repositorio llamado app-descubre-canarias-bs en vuestro repositorio de GitHub.
 
-Clonar el repositorio `https://github.com/<vuestro-usuario>/app-descubre-canarias-bs` de la aplicación en el directorio `html` de _Nginx_:
+Clonar el repositorio `https://github.com/<github-user>/app-descubre-canarias-bs` de la aplicación en el directorio `html` de _Nginx_:
 
 ```bash
 sudo rm -Rf /var/www/html/*
-sudo git clone https://github.com/jonaygarciav/app-descrubre-canarias-bs /var/www/html/
+sudo git clone https://github.com/<github-user>/app-descrubre-canarias-bs /var/www/html/
 sudo chown -R www-data:www-data /var/www/html
 ```
 
