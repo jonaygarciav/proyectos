@@ -75,7 +75,7 @@ Lecturas recomendadas:
 * [Introducción a Amazon EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
 * [Tipos de instancias de Amazon EC2](https://aws.amazon.com/es/ec2/instance-types/)
 
-Crear una instancia EC2 llamada `<github-user>-nginx-ec2` en AWS utilizando la capa gratuita de AWS:
+Crear una instancia EC2 llamada `<github-user>-ec2` en AWS utilizando la capa gratuita de AWS:
 
 | Servicio         | Tipo       | vCPU | RAM | Disco | AMI                 |
 |------------------|------------|------|-----|-------|---------------------|
@@ -85,22 +85,22 @@ Aspectos a tener en cuenta:
 
 * Crear la instancia EC2 a partir de la AMI basada en Ubuntu Server 24.04
 * Se debe asociar el Security Group creado anteriormente a la instancia EC2.
-* Crear una clave SSH nueva (.pem) llamada `<github-user>-nginx-key` y descargarla, la cual usaremos posteriormente para conectarnos a la instancia EC2 mediante el protocolo SSH.
+* Crear una clave SSH nueva (.pem) llamada `<github-user>-key` y descargarla, la cual usaremos posteriormente para conectarnos a la instancia EC2 mediante el protocolo SSH.
 * Crear la instancia EC2 en la única red _VPC_ que existe y en la subred correspondiente a la zona de disponibilidad `us-east-1a`.
 * Asignarle una IP pública a la instancia EC2.
 
 🔹 **Nota:** La instancia `t2.micro` está incluida en la **capa gratuita de AWS**.  
 
-Una vez creada la instancia EC2 y descargada la clave `<github-user>-nginx-key.pem`, nos conectamos a la instancia EC2 mediante SSH con el siguiente comando:
+Una vez creada la instancia EC2 y descargada la clave `<github-user>-key.pem`, nos conectamos a la instancia EC2 mediante SSH con el siguiente comando:
 
 ```bash
-ssh -i <github-user>-nginx-key.pem" ubuntu@<ip-publica-instancia-ec2>
+ssh -i <github-user>-key.pem" ubuntu@<ip-publica-instancia-ec2>
 ```
 
 > __Nota__: si al ejecutar el comando anterior obtienes un error de permisos, corrige los permisos del archivo _.pem_ con:
 
 ```bash
-chmod 400 <github-user>-nginx-key.pem
+chmod 400 <github-user>-key.pem
 ```
 
 ### Parte IV. Instalación de Nginx
@@ -163,7 +163,7 @@ Crear secretos en el repositorio `https://github.com/<github-user>/app-descrubre
 
 Ir a Settings → Secrets and variables → Actions → Repository secrets:
 
-* Crear un nuevo Repository Secret llamado `EC2_SSH_KEY` que contenga el contenido del fichero `<github-user>-nginx-key.pem`.
+* Crear un nuevo Repository Secret llamado `EC2_SSH_KEY` que contenga el contenido del fichero `<github-user>-key.pem`.
 * Crear un nuevo Repository Secret llamado `EC2_HOST` con la `IP pública de la instancia EC2`.
 * Crear un nuevo Repository Secret llamado `EC2_USER` con el usuario `ubunt`.
 
@@ -209,8 +209,9 @@ Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comp
 
 Eliminar los siguientes elementos de AWS:
 
-* Instancia EC2 `<github-user>-nginx-ec2`
-* Security Group `<github-user>-nginx-sg`
+* Instancia EC2 `<github-user>-ec2`
+* Security Group `<github-user>-sg`
+* Pair Key `<github-user>-key`
 
 Eliminar los siguientes repositorios de GitHub:
 
