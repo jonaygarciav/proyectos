@@ -131,7 +131,7 @@ ssh -T git@github.com
 Hi <github-user>! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-### Parte V. Instalación de servidor web Nginx, descarga del repositorio 
+### Parte V. Instalación de servidor web Nginx, instalación del repositorio en la instancia EC2 y añadir reglas a Security Group de AWS
 
 Instalar y configurar _Nginx_ en la instancia EC2:
 
@@ -189,11 +189,11 @@ Actualización Automática con GitHub Actions. Para automatizar la actualizació
 
 Crear secretos en el repositorio `https://github.com/<github-user>/app-descrubre-canarias-bs` de GitHub:
 
-Ir a Settings → Secrets and variables → Actions → Repository secrets:
+Ir a Settings → Secrets and variables → Actions → Repository secrets, y cremos los siguientes Repository Secrets:
 
-* Crear un nuevo Repository Secret llamado `EC2_SSH_KEY` que contenga el contenido del fichero `<github-user>-key.pem`.
-* Crear un nuevo Repository Secret llamado `EC2_HOST` con la `IP pública de la instancia EC2`.
-* Crear un nuevo Repository Secret llamado `EC2_USER` con el usuario `ubuntu`.
+* __EC2_SSH_KEY__: que contenga el contenido del fichero `<github-user>-key.pem`.
+* __EC2_HOST__: que contenga la `IP pública de la instancia EC2`.
+* __EC2_USER__: con el usuario `ubuntu`.
 
 Ahora en tu equipo a través de Visual Studio Code crea el archivo `.github/workflows/deploy.yml` dentro del repositorio local con el siguiente contenido:
 
