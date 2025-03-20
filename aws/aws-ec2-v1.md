@@ -172,7 +172,7 @@ jobs:
 
 Actualiza en tu equipo a través de Visual Studio Code el repositorio cambiándole el título de la página web de `Explora las Islas Canarias` a `Explora las 8 Islas Canarias`, crea un commit para guardar estos cambios en local y luego sube los cambios al repositorio remoto de GitHub.
 
-Confirmar que los cambios en el repositorio activan el despliegue automático en la instancia EC2, para ello revisar GitHub Actions en `∫https://github.com/<github-user>/app-descubre-canarias-bs/actions`.
+Confirmar que los cambios en el repositorio activan el despliegue automático en la instancia EC2, para ello revisar GitHub Actions en `https://github.com/<github-user>/app-descubre-canarias-bs/actions`.
 
 Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
 
