@@ -131,7 +131,7 @@ ssh -T git@github.com
 Hi <github-user>! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-### Parte V. Instalación de servidor web Nginx
+### Parte V. Instalación de servidor web Nginx, descarga del repositorio 
 
 Instalar y configurar _Nginx_ en la instancia EC2:
 
@@ -142,7 +142,7 @@ sudo systemctl enable nginx
 sudo systemctl start nginx
 ```
 
-En GitHub, hacer un `fork` del repositorio de GitHub `https://github.com/jonaygarciav/app-descubre-canarias-bs` a vuestra cuenta: ahora tenéis un repositorio llamado `app-descubre-canarias-bs` en vuestro repositorio de GitHub.
+Desde un navegador web, accede a la web de GitHub y loguéate con tu usuario, accede al repositorio de GitHub `https://github.com/jonaygarciav/app-descubre-canarias-bs` y haz un `fork` del repositorio: ahora deberías tener un repositorio llamado `app-descubre-canarias-bs` en vuestro repositorio de GitHub y puedes acceder a él desde la URL `https://github.com/<github-user>/app-descubre-canarias-bs`
 
 En la instancia EC2, clonar el repositorio `https://github.com/<github-user>/app-descubre-canarias-bs` de la aplicación en el directorio `html` de _Nginx_:
 
