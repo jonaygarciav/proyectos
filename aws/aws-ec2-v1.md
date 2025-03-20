@@ -86,8 +86,8 @@ Aspectos a tener en cuenta:
 * Crear la instancia EC2 a partir de la AMI basada en Ubuntu Server 24.04
 * Se debe asociar el Security Group creado anteriormente a la instancia EC2.
 * Crear una clave SSH nueva (.pem) llamada `<github-user>-nginx-key` y descargarla, la cual usaremos posteriormente para conectarnos a la instancia EC2 mediante el protocolo SSH.
-* Crear la instancia EC2 en la única VPC que existe y en la subred correspondiente a la zona de disponibilidad `us-east-1a`.
-* Asignarle una IP pública a la instancia.
+* Crear la instancia EC2 en la única red _VPC_ que existe y en la subred correspondiente a la zona de disponibilidad `us-east-1a`.
+* Asignarle una IP pública a la instancia EC2.
 
 🔹 **Nota:** La instancia `t2.micro` está incluida en la **capa gratuita de AWS**.  
 
@@ -137,7 +137,9 @@ Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comp
 
 ### Parte V. Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
 
-Ahora en tu equipo, clona el repositorio `https://github.com/<github-user>/app-descrubre-canarias-bs` en local y ábrelo con Visual Studio Code: haz cambios en la aplicación añadiendo en el fichero `index.html` un nuevo `card` con un imagen correspondiente en la carpeta `img`, crea un commit para guardar estos cambios en local y luego sube los cambios al repositorio remoto de GitHub.
+Ahora en tu equipo, clona el repositorio `https://github.com/<github-user>/app-descrubre-canarias-bs` en local y ábrelo con Visual Studio Code:
+* Haz cambios en la aplicación añadiendo en el fichero `index.html` un nuevo `card` con su imagen correspondiente, la cual tendrás que almacenar dentro de la carpeta `img` ya creada.
+* Crea un commit para guardar estos cambios en local y luego súbelos al repositorio remoto de GitHub.
 
 En la instancia EC2, actualizamos el repositorio trayéndonos el último commit del repositorio remoto:
 
@@ -197,7 +199,7 @@ jobs:
 
 > __Notas__: antes de crear el archivo `deploy.yml` hay que crear el directorio `.github` y dentro de él el directorio  `workflows`.
 
-Actualiza en tu equipo a través de Visual Studio Code el repositorio cambiándole el título de la página web de `Explora las Islas Canarias` a `Explora las 8 Islas Canarias`, crea un commit para guardar estos cambios en local y luego sube los cambios al repositorio remoto de GitHub.
+Actualiza en tu equipo a través de Visual Studio Code el repositorio cambiándole el título de la página web de `Explora las Islas Canarias` a `Explora las 8 Islas Canarias`, crea un commit para guardar estos cambios en local y luego súbelos al repositorio remoto de GitHub.
 
 Confirmar que los cambios en el repositorio activan el despliegue automático en la instancia EC2, para ello revisar GitHub Actions en `https://github.com/<github-user>/app-descubre-canarias-bs/actions`.
 
