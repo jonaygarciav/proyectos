@@ -168,7 +168,7 @@ Ir a Settings → Secrets and variables → Actions → Repository secrets:
 
 * Crear un nuevo Repository Secret llamado `EC2_SSH_KEY` que contenga el contenido del fichero `<github-user>-key.pem`.
 * Crear un nuevo Repository Secret llamado `EC2_HOST` con la `IP pública de la instancia EC2`.
-* Crear un nuevo Repository Secret llamado `EC2_USER` con el usuario `ubunt`.
+* Crear un nuevo Repository Secret llamado `EC2_USER` con el usuario `ubuntu`.
 
 Ahora en tu equipo a través de Visual Studio Code crea el archivo `.github/workflows/deploy.yml` dentro del repositorio local con el siguiente contenido:
 
