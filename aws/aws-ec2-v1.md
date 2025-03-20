@@ -148,7 +148,7 @@ En la instancia EC2, clonar el repositorio `https://github.com/<github-user>/app
 
 ```bash
 sudo rm -Rf /var/www/html
-sudo git clone git@github.com:<github-user>/app-descubre-canarias-bs.git
+sudo git clone git@github.com:<github-user>/app-descubre-canarias-bs.git /var/www/html
 sudo chown -R ubuntu:www-data /var/www/html
 ```
 
