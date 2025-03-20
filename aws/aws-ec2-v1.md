@@ -70,7 +70,7 @@ Para el _tráfico de salida_:
 
 * __Nota__: sustituye '<github-user>' por tu nombre de usuario de _GitHub_.
 
-### Parte III. Creación de una instancia EC2
+### Parte III. Creación de una instancia EC2 en AWS
 
 Lecturas recomendadas:
 * [Introducción a Amazon EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
@@ -106,7 +106,7 @@ ssh -i <github-user>-key.pem" ubuntu@<ip-publica-instancia-ec2>
 chmod 400 <github-user>-key.pem
 ```
 
-### Parte IV. Configurar conexión instancia EC2 con GitHub mediante SSH Key
+### Parte IV. Configurar conexión desde instancia EC2 en AWS hacia GitHub mediante SSH Key
 
 En la instancia EC2 generar un par de claves SSH:
 
