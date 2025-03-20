@@ -25,7 +25,7 @@ Existe una red __VPC__ ya creada en la región `us-east-1`:
 |---------|-----------------------|---------------|
 | default | vpc-028d7d7ffaa513c00 | 172.31.0.0/16 |
 
-La región `us-east-1` cuenta con 6 __zonas de disponibilidad__. Esta red _VPC_ cuenta con 6 _subredes_, donde cada _subred_ se encuentra en una _zona de disponibilidad distinta_:
+La región `us-east-1` cuenta con 6 __zonas de disponibilidad__: `us-east-1a`, `us-east-1b`, `us-east-1c`, `us-east-1d`, `us-east-1e` y `us-east-1f`. Esta red _VPC_ cuenta con 6 _subredes_, donde cada _subred_ se encuentra en una _zona de disponibilidad distinta_:
 
 | Zona de disponibilidad | Indentificador de Subred | CIDR           |
 |------------------------|--------------------------|----------------|
