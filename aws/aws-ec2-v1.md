@@ -66,9 +66,9 @@ Para el _tráfico de salida_:
 |-------|----------|---------|-------------|-------------------------|
 | ALL   | ALL      | ALL     | `0.0.0.0/0` | Acceso hacia fuera      |
 
-* __Notas__: para crear un _Security Group_ debes hacerlo desde la configuración _VPC_ en AWS.
+* __Nota__: para crear un _Security Group_ debes hacerlo desde la configuración _VPC_ en AWS.
 
-* __Notas__: sustituye '<github-user>' por tu nombre de usuario de _GitHub_.
+* __Nota__: sustituye '<github-user>' por tu nombre de usuario de _GitHub_.
 
 ### Parte III. Creación de una instancia EC2
 
@@ -92,7 +92,7 @@ Aspectos a tener en cuenta:
 * Crear la instancia EC2 en la única red _VPC_ que existe y en la subred correspondiente a la zona de disponibilidad `us-east-1a`.
 * Asignarle una IP pública a la instancia EC2.
 
-🔹 **Nota:** La instancia `t2.micro` está incluida en la **capa gratuita de AWS**.  
+> __Nota__: la instancia `t2.micro` está incluida en la **capa gratuita de AWS**.  
 
 Una vez creada la instancia EC2 y descargada la clave `<github-user>-key.pem`, nos conectamos a la instancia EC2 mediante SSH con el siguiente comando:
 
@@ -106,7 +106,32 @@ ssh -i <github-user>-key.pem" ubuntu@<ip-publica-instancia-ec2>
 chmod 400 <github-user>-key.pem
 ```
 
-### Parte IV. Instalación de Nginx
+### Parte IV. Configurar conexión instancia EC2 con GitHub mediante SSH Key
+
+En la instancia EC2 generar un par de claves SSH:
+
+```bash
+ssh-keygen -t rsa
+```
+
+Este comando crea dos ficheros en la instancia EC2 con la clave SSH generada para el usuario `ubuntu`: `/home/ubuntu/.ssh/id_rsa` y `/home/ubuntu/.ssh/id_rsa.pub`.
+
+En la consola de GitHub, en nuestro perfil en el menú _Settings - SSH and GPG Keys_, configuramos una nueva clave SSH:
+* __Title__: `ubuntu@<ip-publica-instancia-ec2>`
+* __Key Type__: `Authentication Key`
+* __Key__: contenido del fichero `/home/ubuntu/.ssh/id_rsa.pub` de la instancia EC2.
+
+__Nota__: para ver el contenido del fichero `/home/ubuntu/.ssh/id_rsa.pub` puedes usar el comando `cat`.
+
+Ahora comprobamos la conexión desde la instancia EC2 con el usuario `ubuntu` a GitHub: 
+
+```bash
+ssh -T git@github.com
+
+Hi <github-user>! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+### Parte V. Instalación de servidor web Nginx
 
 Instalar y configurar _Nginx_ en la instancia EC2:
 
@@ -123,11 +148,11 @@ En la instancia EC2, clonar el repositorio `https://github.com/<github-user>/app
 
 ```bash
 sudo rm -Rf /var/www/html
-sudo git clone https://github.com/<github-user>/app-descrubre-canarias-bs /var/www/html
+sudo git clone git@github.com:<github-user>/app-descubre-canarias-bs.git
 sudo chown -R ubuntu:www-data /var/www/html
 ```
 
-Para permitir acceso al Nginx de la instancia EC2, debes añadir al __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-sg` la siguiente regla:
+Para permitir acceso al servidor Nginx de la instancia EC2, debes añadir al __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-sg` la siguiente regla:
 
 Para el _tráfico de entrada_:
 
@@ -136,9 +161,9 @@ Para el _tráfico de entrada_:
 | HTTP  | TCP      | 80      | `0.0.0.0/0` | Acceso por HTTP         |
 | HTTPS | TCP      | 443     | `0.0.0.0/0` | Acceso por HTTPs        |
 
-Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comprobar que accedemos a la aplicación:
+Intenta acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comprobar se ve la aplicación.
 
-### Parte V. Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
+### Parte VI. Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
 
 Ahora en tu equipo, clona el repositorio `https://github.com/<github-user>/app-descrubre-canarias-bs` en local y ábrelo con Visual Studio Code:
 * Haz cambios en la aplicación añadiendo en el fichero `index.html` un nuevo `card` con su imagen correspondiente, la cual tendrás que almacenar dentro de la carpeta `img` ya creada.
@@ -154,7 +179,7 @@ chown -R ubuntu:www-data /var/www/html
 
 Acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
 
-### Parte VI. Automatizar cambios en la instancia EC2 mediante GitHub Actions
+### Parte VII. Automatizar cambios en la instancia EC2 mediante GitHub Actions
 
 Lecturas recomendadas:
 * [Documentación de GitHub Actions](https://docs.github.com/es/actions)
@@ -200,7 +225,7 @@ jobs:
           chown -R ubuntu:www-data /var/www/html
 ```
 
-> __Notas__: hay que crear el directorio `.github` en la raíz del proyecto, luego el directorio `workflows` dentro del directorio `.github` y finalmente crear el archivo `deploy.yml` dentro del directorio `.github/workflows`.
+> __Nota__: hay que crear el directorio `.github` en la raíz del proyecto, luego el directorio `workflows` dentro del directorio `.github` y finalmente crear el archivo `deploy.yml` dentro del directorio `.github/workflows`.
 
 Actualiza en tu equipo a través de Visual Studio Code el repositorio cambiándole el título de la página web de `Explora las Islas Canarias` a `Explora las 8 Islas Canarias`, crea un commit para guardar estos cambios en local y luego súbelos al repositorio remoto de GitHub.
 
@@ -208,7 +233,7 @@ Confirmar que los cambios en el repositorio activan el despliegue automático en
 
 Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
 
-### Parte VII. Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
+### Parte VIII. Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
 
 Eliminar los siguientes elementos de AWS:
 
