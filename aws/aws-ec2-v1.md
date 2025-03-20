@@ -178,7 +178,6 @@ En la instancia EC2, actualizamos el repositorio trayéndonos el último commit 
 ```bash
 cd /var/www/html
 git pull
-chown -R ubuntu:ubuntu /var/www/html
 ```
 
 Acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
@@ -226,7 +225,6 @@ jobs:
         script: |
           cd /var/www/html
           git pull
-          chown -R ubuntu:ubuntu /var/www/html
 ```
 
 > __Nota__: hay que crear el directorio `.github` en la raíz del proyecto, luego el directorio `workflows` dentro del directorio `.github` y finalmente crear el archivo `deploy.yml` dentro del directorio `.github/workflows`.
