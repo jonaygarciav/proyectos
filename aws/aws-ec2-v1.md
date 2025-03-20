@@ -138,6 +138,7 @@ Instalar y configurar _Nginx_ en la instancia EC2:
 ```bash
 sudo apt update
 sudo apt install nginx -y
+
 sudo systemctl enable nginx
 sudo systemctl start nginx
 ```
@@ -192,7 +193,7 @@ Actualización Automática con GitHub Actions. Para automatizar la actualizació
 
 Crear secretos en el repositorio `https://github.com/<github-user>/app-descrubre-canarias-bs` de GitHub:
 
-En la consola de GitHub, en nuestro perfil en el menú _Settings → Secrets and variables → Actions → Repository secrets_, crea  los siguientes _Repository Secrets_:
+En la consola de GitHub, en el proyecto en el menú _Settings → Secrets and variables → Actions → Repository secrets_, crea  los siguientes _Repository Secrets_:
 
 * __EC2_SSH_KEY__: que contenga el contenido del fichero `<github-user>-key.pem`.
 * __EC2_HOST__: que contenga la `IP pública de la instancia EC2`.
