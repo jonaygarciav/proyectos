@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Crear un instancia EC2 en AWS utilizando la capa gratuilta para poder desplegar la aplicación`cuyo código fuente se encuentra en el repositorio de GitHub [https://github.com/jonaygarciav/app-descubre-canarias-bs](https://github.com/jonaygarciav/app-descubre-canarias-bs)
+Crear un instancia EC2 en AWS utilizando la capa gratuita que ofrece AWS para poder desplegar la aplicación web cuyo código fuente se encuentra en el repositorio de GitHub [https://github.com/jonaygarciav/app-descubre-canarias-bs](https://github.com/jonaygarciav/app-descubre-canarias-bs).
 
 ## Software
 
