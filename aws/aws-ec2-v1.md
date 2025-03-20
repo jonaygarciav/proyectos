@@ -148,7 +148,8 @@ En la instancia EC2, clonar el repositorio `https://github.com/<github-user>/app
 
 ```bash
 sudo rm -Rf /var/www/html
-sudo git clone git@github.com:<github-user>/app-descubre-canarias-bs.git /var/www/html
+sudo chown -R ubuntu:www-data /var/www
+git clone git@github.com:<github-user>/app-descubre-canarias-bs.git /var/www/html
 sudo chown -R ubuntu:www-data /var/www/html
 ```
 
@@ -174,7 +175,7 @@ En la instancia EC2, actualizamos el repositorio trayéndonos el último commit 
 ```bash
 cd /var/www/html
 git pull
-chown -R ubuntu:www-data /var/www/html
+sudo chown -R ubuntu:www-data /var/www/html
 ```
 
 Acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
@@ -222,7 +223,7 @@ jobs:
         script: |
           cd /var/www/html
           git pull
-          chown -R ubuntu:www-data /var/www/html
+          sudo chown -R ubuntu:www-data /var/www/html
 ```
 
 > __Nota__: hay que crear el directorio `.github` en la raíz del proyecto, luego el directorio `workflows` dentro del directorio `.github` y finalmente crear el archivo `deploy.yml` dentro del directorio `.github/workflows`.
