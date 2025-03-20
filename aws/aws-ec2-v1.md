@@ -74,6 +74,8 @@ Para el _tráfico de salida_:
 Lecturas recomendadas:
 * [Introducción a Amazon EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
 * [Tipos de instancias de Amazon EC2](https://aws.amazon.com/es/ec2/instance-types/)
+* [Par de claves e instancias de Amazon EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
+* [Creación de un par de claves para la instancia de Amazon EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/create-key-pairs.html)
 
 Crear una instancia EC2 llamada `<github-user>-ec2` en AWS utilizando la capa gratuita de AWS:
 
