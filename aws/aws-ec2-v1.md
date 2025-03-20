@@ -12,19 +12,27 @@ Crear un instancia EC2 en AWS utilizando la capa gratuilta para poder desplegar 
 
 ## Contenido
 
-### Parte I
+### Parte I. VPC, Subredes y zonas
 
-Para permitir acceso a las instancias, debes crear un __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-sg` con las siguientes reglas:
+Lecturas recomendadas:
+* [¿Qué es Amazon VPC?](https://docs.aws.amazon.com/es_es/vpc/latest/userguide/what-is-amazon-vpc.html)
+* [Regiones y zonas](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
 
-Para el tráfico de entrada:
+### Parte II. Creación de Security Group
+
+Lecturas recomendadas:
+* [Controlar el tráfico hacia los recursos de AWS mediante grupos de seguridad](https://docs.aws.amazon.com/es_es/vpc/latest/userguide/vpc-security-groups.html)
+* [Crear un Grupo de Seguridad](https://docs.aws.amazon.com/es_es/vpc/latest/userguide/creating-security-groups.html)
+
+Para permitir el acceso por SSH a la instancia EC2, debes crear un __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-sg` con las siguientes reglas:
+
+Para el _tráfico de entrada_:
 
 | Tipo  | Protocolo | Puerto | Origen      | Descripción             |
 |-------|----------|---------|-------------|-------------------------|
-| SSH   | TCP      | 22      | `0.0.0.0/0` | Acceso seguro por SSH   |
-| HTTP  | TCP      | 80      | `0.0.0.0/0` | Permitir trafico web    |
-| HTTPS | TCP      | 443     | `0.0.0.0/0` | Permitir trafico seguro |
+| SSH   | TCP      | 22      | `0.0.0.0/0` | Acceso por SSH          |
 
-Para el tráfico de salida:
+Para el _tráfico de salida_:
 
 | Tipo  | Protocolo | Puerto | Origen      | Descripción             |
 |-------|----------|---------|-------------|-------------------------|
@@ -34,7 +42,11 @@ Para el tráfico de salida:
 
 * __Notas__: sustituye '<github-user>' por tu nombre de usuario de _GitHub_.
 
-### Parte II
+### Parte III. Creación de una instancia EC2
+
+Lecturas recomendadas:
+* (Introducción a Amazon EC2)[https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/EC2_GetStarted.html]
+* (Tipos de instancias de Amazon EC2)[https://aws.amazon.com/es/ec2/instance-types/]
 
 Crear una instancia EC2 llamada `<github-user>-nginx-ec2` en AWS utilizando la capa gratuita de AWS:
 
@@ -47,7 +59,7 @@ Aspectos a tener en cuenta:
 * Crear la instancia EC2 a partir de la AMI basada en Ubuntu Server 24.04
 * Se debe asociar el Security Group creado anteriormente a la instancia EC2.
 * Crear una clave SSH nueva (.pem) llamada `<github-user>-nginx-key` y descargarla, la cual usaremos posteriormente para conectarnos a la instancia EC2 mediante el protocolo SSH.
-* Crear la instancia en la única VPC que existe y la subred correspondiente a la zona us-east-1a.
+* Crear la instancia EC2 en la única VPC que existe y en la subred correspondiente a la zona de disponibilidad `us-east-1a`.
 * Asignarle una IP pública a la instancia.
 
 🔹 **Nota:** La instancia `t2.micro` está incluida en la **capa gratuita de AWS**.  
@@ -64,7 +76,7 @@ ssh -i <github-user>-nginx-key.pem" ubuntu@<ip-publica-instancia-ec2>
 chmod 400 <github-user>-nginx-key.pem
 ```
 
-### Parte III
+### Parte IV. Instalación de Nginx
 
 Instalar y configurar _Nginx_ en la instancia EC2:
 
@@ -85,9 +97,18 @@ sudo git clone https://github.com/<github-user>/app-descrubre-canarias-bs /var/w
 sudo chown -R ubuntu:www-data /var/www/html
 ```
 
+Para permitir acceso al Nginx de la instancia EC2, debes añadir al __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-sg` la siguiente regla:
+
+Para el _tráfico de entrada_:
+
+| Tipo  | Protocolo | Puerto | Origen      | Descripción             |
+|-------|----------|---------|-------------|-------------------------|
+| HTTP  | TCP      | 80      | `0.0.0.0/0` | Acceso por HTTP         |
+| HTTPS | TCP      | 443     | `0.0.0.0/0` | Acceso por HTTPs        |
+
 Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comprobar que accedemos a la aplicación:
 
-### Parte IV
+### Parte V. Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
 
 Ahora en tu equipo, clona el repositorio `https://github.com/<github-user>/app-descrubre-canarias-bs` en local y ábrelo con Visual Studio Code: haz cambios en la aplicación añadiendo en el fichero `index.html` un nuevo `card` con un imagen correspondiente en la carpeta `img`, crea un commit para guardar estos cambios en local y luego sube los cambios al repositorio remoto de GitHub.
 
@@ -101,7 +122,11 @@ chown -R ubuntu:www-data /var/www/html
 
 Acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
 
-### Parte V
+### Parte VI. Automaticar cambios en la instancia EC2 mediante GitHub Actions
+
+Lecturas recomendadas:
+* [Documentación de GitHub Actions](https://docs.github.com/es/actions)
+* [Entender GitHub Actions](https://docs.github.com/es/actions/about-github-actions/understanding-github-actions)
 
 Actualización Automática con GitHub Actions. Para automatizar la actualización del repositorio en la instancia EC2 cada vez que subamos un commit al repositorio remoto, agregamos un __workflow__ de __GitHub Actions__.
 
@@ -151,7 +176,7 @@ Confirmar que los cambios en el repositorio activan el despliegue automático en
 
 Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
 
-### Parte VI
+### Parte VII. Borrar Instancia EC2, Security Group y Repositorio de GitHub
 
 Eliminar los siguientes elementos de AWS:
 
