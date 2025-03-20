@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Crear un instancia EC2 en AWS utilizando la capa gratuilta para poder desplegar la aplicación https://github.com/jonaygarciav/app-descubre-canarias-bs
+Crear un instancia EC2 en AWS utilizando la capa gratuilta para poder desplegar la aplicación `https://github.com/jonaygarciav/app-descubre-canarias-bs`
 
 ## Software
 
@@ -12,11 +12,38 @@ Crear un instancia EC2 en AWS utilizando la capa gratuilta para poder desplegar 
 
 ## Contenido
 
-### Parte I. VPC, Subredes y zonas
+### Parte I. Redes VPC, Subredes y zonas
 
 Lecturas recomendadas:
 * [¿Qué es Amazon VPC?](https://docs.aws.amazon.com/es_es/vpc/latest/userguide/what-is-amazon-vpc.html)
-* [Regiones y zonas](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
+* [Regiones y zonas en AWS](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
+* [Concesión de acceso a Internet de la VPC con puertas de enlace de Internet](https://docs.aws.amazon.com/es_es/vpc/latest/userguide/VPC_Internet_Gateway.html)
+
+Existe una red __VPC__ ya creada en la región `us-east-1`:
+
+| VPC     | Identificador         | CIDR          |
+|---------|-----------------------|---------------|
+| default | vpc-028d7d7ffaa513c00 | 172.31.0.0/16 |
+
+La región `us-east-1` cuenta con 6 __zonas de disponibilidad__. Esta red _VPC_ cuenta con 6 _subredes_, donde cada _subred_ se encuentra en una _zona de disponibilidad distinta_:
+
+| Zona de disponibilidad | Indentificador de Subred | CIDR           |
+|------------------------|--------------------------|----------------|
+| us-east-1a             | subnet-0c13c7bae2a27de4f | 172.31.16.0/20 |
+| us-east-1b             | subnet-0c13c7bae2a27de4f | 172.31.32.0/20 |
+| us-east-1c             | subnet-0c13c7bae2a27de4f | 172.31.48.0/20 |
+| us-east-1d             | subnet-0c13c7bae2a27de4f | 172.31.64.0/20 |
+| us-east-1e             | subnet-0c13c7bae2a27de4f | 172.31.80.0/20 |
+| us-east-1f             | subnet-0c13c7bae2a27de4f | 172.31.96.0/20 |
+
+Todas y cada una de las subredes de la red VPC son públicas ya que están conectadas a un __Internet Gateway__ (_IG_), el cual es un componente de red de AWS que permite quen las instancias EC2 dentro de una red _VPC_ puedan comunicarse hacia o desde Internet. Para que reciban tráfico de Internet deben tener una __dirección pública__ asociada o una __Elastic IP__. Esto lo hacen mediante la configuración de una __tabla de rutas__:
+
+| Destino       | Target         | Descripción                                       |
+|---------------|----------------|---------------------------------------------------|
+| 172.31.0.0/16 | local          | Comunicación interna dentro de la VPC             |
+| 0.0.0.0/0     | igw-1234567890 | Ruta hacia Internet a través del Internet Gateway |
+
+> __Notas__: los identificadores tanto de redes _VPC_ como de _subredes_, así como de _Internet Gateway_ pueden no ser los mismos.
 
 ### Parte II. Creación de Security Group
 
@@ -38,7 +65,7 @@ Para el _tráfico de salida_:
 |-------|----------|---------|-------------|-------------------------|
 | ALL   | ALL      | ALL     | `0.0.0.0/0` | Acceso hacia fuera      |
 
-* __Notas__: para crear un _Security Group_ debes hacerlo desde la configuración VPC en AWS.
+* __Notas__: para crear un _Security Group_ debes hacerlo desde la configuración _VPC_ en AWS.
 
 * __Notas__: sustituye '<github-user>' por tu nombre de usuario de _GitHub_.
 
