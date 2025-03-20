@@ -195,7 +195,7 @@ Ir a Settings → Secrets and variables → Actions → Repository secrets, y cr
 * __EC2_HOST__: que contenga la `IP pública de la instancia EC2`.
 * __EC2_USER__: con el usuario `ubuntu`.
 
-Ahora en tu equipo a través de Visual Studio Code crea el archivo `.github/workflows/deploy.yml` dentro del repositorio local con el siguiente contenido:
+Ahora en tu equipo, a través de Visual Studio Code crea el archivo `.github/workflows/deploy.yml` dentro del repositorio local con el siguiente contenido:
 
 ```
 name: Deploy to EC2
