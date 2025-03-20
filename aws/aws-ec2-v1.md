@@ -45,8 +45,8 @@ Para el _tráfico de salida_:
 ### Parte III. Creación de una instancia EC2
 
 Lecturas recomendadas:
-* (Introducción a Amazon EC2)[https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/EC2_GetStarted.html]
-* (Tipos de instancias de Amazon EC2)[https://aws.amazon.com/es/ec2/instance-types/]
+* [Introducción a Amazon EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
+* [Tipos de instancias de Amazon EC2](https://aws.amazon.com/es/ec2/instance-types/)
 
 Crear una instancia EC2 llamada `<github-user>-nginx-ec2` en AWS utilizando la capa gratuita de AWS:
 
