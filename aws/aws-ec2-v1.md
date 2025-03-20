@@ -30,7 +30,9 @@ Para el tráfico de salida:
 |-------|----------|---------|-------------|-------------------------|
 | ALL   | ALL      | ALL     | `0.0.0.0/0` | Acceso hacia fuera      |
 
-* __Notas__: para crear un _Security Group_ debes hacerlo desde la configuración VPC.
+* __Notas__: para crear un _Security Group_ debes hacerlo desde la configuración VPC en AWS.
+
+* __Notas__: sustituye '<github-user>' por tu nombre de usuario de _GitHub_.
 
 ### Parte II
 
@@ -59,7 +61,7 @@ ssh -i <github-user>-nginx-key.pem" ubuntu@<ip-publica-instancia-ec2>
 > __Nota__: si al ejecutar el comando anterior obtienes un error de permisos, corrige los permisos del archivo _.pem_ con:
 
 ```bash
-chmod 400 mi-clave.pem
+chmod 400 <github-user>-nginx-key.pem
 ```
 
 ### Parte III
