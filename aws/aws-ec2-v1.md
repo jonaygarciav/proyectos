@@ -55,10 +55,11 @@ Para permitir el acceso por SSH a la instancia EC2, debes crear un __Grupo de Se
 
 Para el _tráfico de entrada_:
 
-| Tipo  | Protocolo | Puerto | Origen      | Descripción             |
-|-------|----------|---------|-------------|-------------------------|
-| SSH   | TCP      | 22      | `0.0.0.0/0` | Acceso por SSH          |
+| Tipo  | Protocolo | Puerto | Origen               | Descripción             |
+|-------|----------|---------|----------------------|-------------------------|
+| SSH   | TCP      | 22      | `<tu-ip-publica>/32` | Acceso por SSH          |
 
+> __Nota__: sustituye `<tu-ip-publica>` por tu IP pública. Para consultarla la IP Pública puedes hacerlo desde la siguiente URL: `https://www.cualesmiip.com/`
 Para el _tráfico de salida_:
 
 | Tipo  | Protocolo | Puerto | Origen      | Descripción             |
