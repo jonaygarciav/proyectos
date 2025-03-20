@@ -151,7 +151,7 @@ chown -R ubuntu:www-data /var/www/html
 
 Acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
 
-### Parte VI. Automaticar cambios en la instancia EC2 mediante GitHub Actions
+### Parte VI. Automatizar cambios en la instancia EC2 mediante GitHub Actions
 
 Lecturas recomendadas:
 * [Documentación de GitHub Actions](https://docs.github.com/es/actions)
@@ -205,13 +205,13 @@ Confirmar que los cambios en el repositorio activan el despliegue automático en
 
 Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
 
-### Parte VII. Borrar Instancia EC2, Security Group y Repositorio de GitHub
+### Parte VII. Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
 
 Eliminar los siguientes elementos de AWS:
 
 * Instancia EC2 `<github-user>-ec2`
 * Security Group `<github-user>-sg`
-* Pair Key `<github-user>-key`
+* Key Pair `<github-user>-key`
 
 Eliminar los siguientes repositorios de GitHub:
 
