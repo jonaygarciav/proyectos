@@ -136,7 +136,7 @@ Hi <github-user>! You've successfully authenticated, but GitHub does not provide
 Instalar y configurar _Nginx_ en la instancia EC2:
 
 ```bash
-sudo apt update && sudo apt upgrade -y
+sudo apt update
 sudo apt install nginx -y
 sudo systemctl enable nginx
 sudo systemctl start nginx
@@ -153,7 +153,6 @@ sudo chown -R ubuntu:ubuntu /var/www
 sudo chmod -R 775 /var/www
 
 git clone git@github.com:<github-user>/app-descubre-canarias-bs.git /var/www/html
-sudo chown -R ubuntu:ubuntu /var/www/html
 ```
 
 Para permitir acceso al servidor Nginx de la instancia EC2, debes añadir al __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-sg` la siguiente regla:
@@ -177,6 +176,7 @@ En la instancia EC2, actualizamos el repositorio trayéndonos el último commit 
 
 ```bash
 cd /var/www/html
+
 git pull
 ```
 
