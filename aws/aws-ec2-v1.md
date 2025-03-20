@@ -12,14 +12,14 @@ Crear un instancia EC2 en AWS utilizando la capa gratuita que ofrece AWS para po
 
 ## Contenido
 
-### Parte I. Redes VPC, Subredes y zonas
+### Parte I. Redes VPC, Subredes y zonas en AWS
 
 Lecturas recomendadas:
 * [¿Qué es Amazon VPC?](https://docs.aws.amazon.com/es_es/vpc/latest/userguide/what-is-amazon-vpc.html)
 * [Regiones y zonas en AWS](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
 * [Concesión de acceso a Internet de la VPC con puertas de enlace de Internet](https://docs.aws.amazon.com/es_es/vpc/latest/userguide/VPC_Internet_Gateway.html)
 
-Existe una red __VPC__ ya creada en la región `us-east-1`:
+Existe una red __VPC__ ya creada en AWS en la región `us-east-1`:
 
 | VPC     | Identificador         | CIDR          |
 |---------|-----------------------|---------------|
@@ -45,7 +45,7 @@ Todas y cada una de las subredes de la red VPC son públicas ya que están conec
 
 > __Notas__: los identificadores tanto de redes _VPC_ como de _subredes_, así como de _Internet Gateway_ pueden no ser los mismos.
 
-### Parte II. Creación de Security Group
+### Parte II. Creación de Security Group en AWS
 
 Lecturas recomendadas:
 * [Controlar el tráfico hacia los recursos de AWS mediante grupos de seguridad](https://docs.aws.amazon.com/es_es/vpc/latest/userguide/vpc-security-groups.html)
