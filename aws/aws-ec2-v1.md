@@ -116,7 +116,7 @@ ssh-keygen -t rsa
 
 Este comando crea dos ficheros en la instancia EC2 con la clave SSH generada para el usuario `ubuntu`: `/home/ubuntu/.ssh/id_rsa` y `/home/ubuntu/.ssh/id_rsa.pub`.
 
-En la consola de GitHub, en nuestro perfil en el menú _Settings - SSH and GPG Keys_, configuramos una nueva clave SSH:
+En la consola de GitHub, en nuestro perfil en el menú _Settings → SSH and GPG Keys_, configuramos una nueva clave SSH:
 * __Title__: `ubuntu@<ip-publica-instancia-ec2>`
 * __Key Type__: `Authentication Key`
 * __Key__: contenido del fichero `/home/ubuntu/.ssh/id_rsa.pub` de la instancia EC2.
@@ -185,11 +185,11 @@ Lecturas recomendadas:
 * [Documentación de GitHub Actions](https://docs.github.com/es/actions)
 * [Entender GitHub Actions](https://docs.github.com/es/actions/about-github-actions/understanding-github-actions)
 
-Actualización Automática con GitHub Actions. Para automatizar la actualización del repositorio en la instancia EC2 cada vez que subamos un commit al repositorio remoto, agregamos un __workflow__ de __GitHub Actions__.
+Actualización Automática con GitHub Actions. Para automatizar la actualización del repositorio en la instancia EC2 cada vez que subamos un commit al repositorio remoto, lo que haremos será configurar un __workflow__ en _GitHub Actions_.
 
 Crear secretos en el repositorio `https://github.com/<github-user>/app-descrubre-canarias-bs` de GitHub:
 
-Ir a Settings → Secrets and variables → Actions → Repository secrets, y cremos los siguientes Repository Secrets:
+En la consola de GitHub, en nuestro perfil en el menú _Settings → Secrets and variables → Actions → Repository secrets_, crea  los siguientes _Repository Secrets_:
 
 * __EC2_SSH_KEY__: que contenga el contenido del fichero `<github-user>-key.pem`.
 * __EC2_HOST__: que contenga la `IP pública de la instancia EC2`.
