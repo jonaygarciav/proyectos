@@ -196,7 +196,7 @@ Para poder acceder a la aplicación de la instancia EC2, debes añadir al __Grup
 
 Para el _tráfico de entrada_:
 
-| Tipo de Origen | Protocolo | Puerto | Origen      | Descripción             |
+| Tipo           | Protocolo | Puerto | Origen      | Descripción             |
 |----------------|-----------|--------|-------------|-------------------------|
 | Personalizado  | TCP       | 5000   | `0.0.0.0/0` | Acceso a Flask App      |
 
