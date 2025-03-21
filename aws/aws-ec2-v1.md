@@ -56,7 +56,7 @@ Para el _tráfico de entrada_:
 
 | Tipo  | Protocolo | Puerto | Origen               | Descripción             |
 |-------|----------|---------|----------------------|-------------------------|
-| SSH   | TCP      | 22      | `<tu-ip-publica>/32` | Acceso por SSH          |
+| SSH   | TCP      | 22      | `0.0.0.0/0`          | Acceso por SSH          |
 
 > __Nota__: sustituye `<tu-ip-publica>` por tu IP pública. Para consultarla puedes hacerlo desde la siguiente URL: `https://www.cualesmiip.com/`
 Para el _tráfico de salida_:
