@@ -2,13 +2,12 @@
 
 ## Descripción
 
-Crear un instancia EC2 en AWS utilizando la capa gratuita que ofrece AWS para poder desplegar la aplicación web cuyo código fuente se encuentra en el repositorio de GitHub [https://github.com/jonaygarciav/app-descubre-canarias-bs](https://github.com/jonaygarciav/app-descubre-canarias-bs).
+Crear un instancia EC2 en AWS utilizando la capa gratuita que ofrece AWS para poder desplegar la aplicación web cuyo código fuente se encuentra en el repositorio de GitHub [https://github.com/jonaygarciav/app-canarias-experience-py](https://github.com/jonaygarciav/app-canarias-experience-py).
 
 ## Software
 
 * __Servicios en AWS__: EC2, Security Group, Key Pair
 * __Sistemas Operativos__: Ubuntu Server 24.04
-* __Servidores Web__: Nginx 
 
 ## Contenido
 
@@ -131,57 +130,97 @@ ssh -T git@github.com
 Hi <github-user>! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-### Parte V. Instalación de servidor web Nginx, instalación del repositorio en la instancia EC2 y añadir reglas a Security Group de AWS
+### Parte V. Instalalación y configuración del repositorio en la instancia EC2, configuración servicio Systemd y configuración de Security Group de AWS
 
-Instalar y configurar _Nginx_ en la instancia EC2:
+Desde un navegador web, accede a la web de GitHub y loguéate con tu usuario, accede al repositorio de GitHub `https://github.com/jonaygarciav/app-canarias-experience-py` y haz un `fork` del repositorio: ahora deberías tener un repositorio llamado `app-canarias-experience-py` en vuestro repositorio de GitHub y puedes acceder a él desde la URL `https://github.com/<github-user>/app-canarias-experience-py`
+
+En la instancia EC2, clonar el repositorio `https://github.com/<github-user>/app-canarias-experience-py` de la aplicación en el directorio `/home/ubuntu/flask-app`:
+
+```bash
+git clone git@github.com:<github-user>/app-canarias-experience.git /home/ubuntu/flask-app
+```
+
+En la instancia EC2, instalar el paquete `python3.12-venv` para crear entornos virtuales:
 
 ```bash
 sudo apt update
-sudo apt install nginx -y
-
-sudo systemctl enable nginx
-sudo systemctl start nginx
+sudo apt install python3.12-venv -y
 ```
 
-Desde un navegador web, accede a la web de GitHub y loguéate con tu usuario, accede al repositorio de GitHub `https://github.com/jonaygarciav/app-descubre-canarias-bs` y haz un `fork` del repositorio: ahora deberías tener un repositorio llamado `app-descubre-canarias-bs` en vuestro repositorio de GitHub y puedes acceder a él desde la URL `https://github.com/<github-user>/app-descubre-canarias-bs`
-
-En la instancia EC2, clonar el repositorio `https://github.com/<github-user>/app-descubre-canarias-bs` de la aplicación en el directorio `html` de _Nginx_:
+En la instancia EC2, crear un entorno virtual e instalar dependencias:
 
 ```bash
-sudo rm -Rf /var/www/html
+cd /home/ubuntu/flask-app
+python3 -m venv .venv
 
-sudo chown -R ubuntu:ubuntu /var/www
-sudo chmod -R 775 /var/www
-
-git clone git@github.com:<github-user>/app-descubre-canarias-bs.git /var/www/html
+source .venv/bin/activate
+pip3 install -r requirements.txt
 ```
 
-Para permitir acceso al servidor Nginx de la instancia EC2, debes añadir al __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-sg` la siguiente regla:
+Configurar servicio Systemd para poder parar y arrancar la aplicación como un servicio del sistema, para ello, creamos el archivo `/etc/systemd/system/flask-app.service` con el siguiente contenido:
+
+```bash
+[Unit]
+Description=Flask App Service
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/flask-app
+Environment="PATH=/home/ubuntu/flask-app/.venv/bin"
+ExecStart=/home/ubuntu/flask-app/.venv/bin/python3 /home/ubuntu/flask-app/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Activa el servicio y arranca la aplicación:
+
+```bash
+sudo systemctl daemon-reload
+
+sudo systemctl enable flask-app
+sudo systemctl start flask-app
+```
+
+En la instancia EC2 probamos que la aplicación se haya levantado correctamente:
+
+```bash
+curl http://localhost:5000
+¡Hola, bienvenido a mi aplicación Flask!
+```
+
+Para poder acceder a la aplicación de la instancia EC2, debes añadir al __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-sg` la siguiente regla:
 
 Para el _tráfico de entrada_:
 
 | Tipo  | Protocolo | Puerto | Origen      | Descripción             |
 |-------|----------|---------|-------------|-------------------------|
 | HTTP  | TCP      | 80      | `0.0.0.0/0` | Acceso por HTTP         |
-| HTTPS | TCP      | 443     | `0.0.0.0/0` | Acceso por HTTPs        |
 
-Intenta acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comprobar se ve la aplicación.
+Ahora, desde tu equipo, abre un navegador web e intenta acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>:5000` y comprobar que se muestra la aplicación.
 
 ### Parte VI. Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
 
-Ahora en tu equipo, clona el repositorio `https://github.com/<github-user>/app-descrubre-canarias-bs` en local y ábrelo con Visual Studio Code:
-* Haz cambios en la aplicación añadiendo en el fichero `index.html` un nuevo `card` con su imagen correspondiente, la cual tendrás que almacenar dentro de la carpeta `img` ya creada.
+Ahora en tu equipo, clona el repositorio `https://github.com/<github-user>/app-canarias-experience-py` en local y ábrelo con Visual Studio Code:
+* Haz cambios en la aplicación añadiendo en el fichero `templates/index.html` un nuevo `card` con su imagen correspondiente, la cual tendrás que almacenar dentro de la carpeta `static/img` ya creada.
 * Crea un commit para guardar estos cambios en local y luego súbelos al repositorio remoto de GitHub.
 
 En la instancia EC2, actualizamos el repositorio trayéndonos el último commit del repositorio remoto:
 
 ```bash
-cd /var/www/html
-
-git pull
+cd /home/ubuntu/flask-app
 ```
 
-Acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
+Reiniciamos el servicio:
+
+```bash
+sudo systemctl restart flask-app
+```
+
+Acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>:5000` y comprobar que se muestran los cambios.
 
 ### Parte VII. Automatizar cambios en la instancia EC2 mediante GitHub Actions
 
@@ -191,7 +230,7 @@ Lecturas recomendadas:
 
 Actualización Automática con GitHub Actions. Para automatizar la actualización del repositorio en la instancia EC2 cada vez que subamos un commit al repositorio remoto, lo que haremos será configurar un __workflow__ en _GitHub Actions_.
 
-Crear secretos en el repositorio `https://github.com/<github-user>/app-descrubre-canarias-bs` de GitHub:
+Crear secretos en el repositorio `https://github.com/<github-user>/app-canarias-experience-py` de GitHub:
 
 En la consola de GitHub, en el proyecto en el menú _Settings → Secrets and variables → Actions → Repository secrets_, crea  los siguientes _Repository Secrets_:
 
@@ -218,23 +257,28 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Deploy to EC2
-      uses: appleboy/ssh-action@v0.1.10
+      uses: appleboy/ssh-action@v1.2.2
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          cd /var/www/html
+          export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no"
+          cd /home/ubuntu/flask-app
+          echo "GIT PULL:"
           git pull
+          sudo systemctl restart flask-app
+          echo "ESTADO DEL SERVICIO flask-app:"
+          sudo systemctl status flask-app --no-pager
 ```
 
 > __Nota__: hay que crear el directorio `.github` en la raíz del proyecto, luego el directorio `workflows` dentro del directorio `.github` y finalmente crear el archivo `deploy.yml` dentro del directorio `.github/workflows`.
 
-Actualiza en tu equipo a través de Visual Studio Code el repositorio cambiándole el título de la página web de `Explora las Islas Canarias` a `Explora las 8 Islas Canarias`, crea un commit para guardar estos cambios en local y luego súbelos al repositorio remoto de GitHub.
+Actualiza en tu equipo a través de Visual Studio Code el repositorio cambiándole el título de la página web de `Canarias Experience` a `Canarias 8 Experience`, crea un commit para guardar estos cambios en local y luego súbelos al repositorio remoto de GitHub.
 
-Confirmar que los cambios en el repositorio activan el despliegue automático en la instancia EC2, para ello revisar GitHub Actions en `https://github.com/<github-user>/app-descubre-canarias-bs/actions`.
+Confirmar que los cambios en el repositorio activan el despliegue automático en la instancia EC2, para ello revisar GitHub Actions en `https://github.com/<github-user>/app-canarias-experience-py/actions`.
 
-Acceder a la aplicación a través de la URL `<ip-publica-instancia-ec2>` y comprobar que se ven los cambios.
+Acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>:5000` y comprobar que se muestran los cambios.
 
 ### Parte VIII. Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
 
@@ -246,4 +290,8 @@ Eliminar los siguientes elementos de AWS:
 
 Eliminar los siguientes repositorios de GitHub:
 
-* `https://github.com/<github-user>/app-descrubre-canarias-bs`
+* `https://github.com/<github-user>/app-canarias-experience-py`
+
+Eliminar las siguientes claves SSH de GitHub:
+
+* En la cuenta personal, en el menú Settings → SSH and GPG Keys, eliminar la clave SSH `ubuntu@<ip-publica-instancia-ec2>`
