@@ -212,6 +212,8 @@ En la instancia EC2, actualizamos el repositorio trayéndonos el último commit 
 
 ```bash
 cd /home/ubuntu/flask-app
+
+git pull
 ```
 
 Reiniciamos el servicio:
