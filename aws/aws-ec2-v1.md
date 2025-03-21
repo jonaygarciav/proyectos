@@ -96,7 +96,7 @@ Aspectos a tener en cuenta:
 Una vez creada la instancia EC2 y descargada la clave `<github-user>-key.pem`, nos conectamos a la instancia EC2 mediante SSH con el siguiente comando:
 
 ```bash
-ssh -i <github-user>-key.pem" ubuntu@<ip-publica-instancia-ec2>
+ssh -i <github-user>-key.pem ubuntu@<ip-publica-instancia-ec2>
 ```
 
 > __Nota__: si al ejecutar el comando anterior obtienes un error de permisos, corrige los permisos del archivo _.pem_ con:
