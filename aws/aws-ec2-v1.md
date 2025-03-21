@@ -79,9 +79,9 @@ Lecturas recomendadas:
 
 Crear una instancia EC2 llamada `<github-user>-ec2` en AWS utilizando la capa gratuita de AWS:
 
-| Servicio         | Tipo       | vCPU | RAM | Disco | AMI                 |
-|------------------|------------|------|-----|-------|---------------------|
-| **Nginx Server** | `t2.micro` | 1    | 1GB | 8GB   | Ubuntu Server 24.04 |
+| Servicio                | Tipo       | vCPU | RAM | Disco | AMI                 |
+|-------------------------|------------|------|-----|-------|---------------------|
+| **Python Flask Server** | `t2.micro` | 1    | 1GB | 8GB   | Ubuntu Server 24.04 |
 
 Aspectos a tener en cuenta:
 
@@ -196,9 +196,9 @@ Para poder acceder a la aplicación de la instancia EC2, debes añadir al __Grup
 
 Para el _tráfico de entrada_:
 
-| Tipo  | Protocolo | Puerto | Origen      | Descripción             |
-|-------|----------|---------|-------------|-------------------------|
-| HTTP  | TCP      | 80      | `0.0.0.0/0` | Acceso por HTTP         |
+| Tipo de Origen | Protocolo | Puerto | Origen      | Descripción             |
+|----------------|-----------|--------|-------------|-------------------------|
+| Personalizado  | TCP       | 5000   | `0.0.0.0/0` | Acceso a Flask App      |
 
 Ahora, desde tu equipo, abre un navegador web e intenta acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>:5000` y comprobar que se muestra la aplicación.
 
