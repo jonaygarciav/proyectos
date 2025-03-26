@@ -300,9 +300,10 @@ Para el _tráfico de entrada_:
 |----------------|-----------|--------|--------------------------------|----------------|
 | Personalizado  | TCP       | 3306   | `<ip-private-instancia-ec2/32` | Acceso a MySQL |
 
-En la instancia EC2 carga el fichero `seed.sql` en la Base de Datos MySQL:
+En la instancia EC2 carga el fichero `flask-app/seed.sql` en la Base de Datos MySQL:
 
 ```bash
+cd /home/ubuntu/flask-app
 mysql -h <github-user>-db.c18o4wyiy79q.us-east-1.rds.amazonaws.com -u contactos_user -p < seed.sql
 ```
 
@@ -366,6 +367,8 @@ mysql> select * from contacto;
 10 rows in set (0.00 sec)
 ```
 
+En la instancia EC2, en el fichero `flask-app/config.py`, configura los parámetros de conexión a la instancia RDS de MySQL.
+
 En la instancia EC2 arranca la aplicación:
 
 ```bash
@@ -376,7 +379,6 @@ En la instancia EC2 comprueba que la aplicación se haya levantado correctamente
 
 ```bash
 curl http://localhost:5000
-¡Hola, bienvenido a mi aplicación Flask!
 ```
 
 En la instancia EC2 lanza el siguiente test, debería devolverte que existen 10 usuarios en base de datos:
