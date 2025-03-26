@@ -1,5 +1,15 @@
 # AWS EC2 v1
 
+* _Parte I_: Redes VPC, Subredes y zonas en AWS
+* _Paso II_: Creación de Par de claves en AWS
+* _Paso III_: Creación de Security Group en AWS
+* _Paso IV_: Creación de una instancia EC2 en AWS
+* _Paso V_: Configurar conexión desde instancia EC2 en AWS hacia GitHub mediante SSH Key
+* _Paso VI_: Instalalación y configuración del repositorio en la instancia EC2, configuración servicio Systemd y configuración de Security Group de AWS
+* _Paso VII_: Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
+* _Paso VIII_: Automatizar cambios en la instancia EC2 mediante GitHub Actions
+* _Paso IX_: Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
+
 ## Descripción
 
 Crear un instancia EC2 en AWS utilizando la capa gratuita que ofrece AWS para poder desplegar la aplicación web cuyo código fuente se encuentra en el repositorio de GitHub [https://github.com/jonaygarciav/app-canarias-experience-py](https://github.com/jonaygarciav/app-canarias-experience-py).
@@ -44,7 +54,7 @@ Todas y cada una de las subredes de la red VPC son públicas ya que están conec
 
 > __Notas__: los identificadores tanto de redes _VPC_ como de _subredes_, así como de _Internet Gateway_ pueden no ser los mismos.
 
-### Parte II. Creación de Security Group en AWS
+### Paso II. Creación de Par de claves en AWS
 
 Lecturas recomendadas:
 * [Par de claves e instancias de Amazon EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
@@ -52,9 +62,9 @@ Lecturas recomendadas:
 
 ![][01]
 
- Crea una clave SSH nueva (.pem) llamada `<github-user>-key` y descargarla, la cual usaremos posteriormente para conectarnos a la instancia EC2 mediante el protocolo SSH.
+Crea una clave SSH nueva (.pem) llamada `<github-user>-key` y descargarla en tu equipo, la cual usaremos posteriormente para conectarnos a la instancia EC2 mediante el protocolo SSH.
 
-### Parte III. Creación de Security Group en AWS
+### Paso III. Creación de Security Group en AWS
 
 Lecturas recomendadas:
 * [Controlar el tráfico hacia los recursos de AWS mediante grupos de seguridad](https://docs.aws.amazon.com/es_es/vpc/latest/userguide/vpc-security-groups.html)
@@ -80,7 +90,7 @@ Para el _tráfico de salida_:
 
 * __Nota__: sustituye `<github-user>` por tu nombre de usuario de _GitHub_.
 
-### Parte IV. Creación de una instancia EC2 en AWS
+### Paso IV. Creación de una instancia EC2 en AWS
 
 Lecturas recomendadas:
 * [Introducción a Amazon EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
@@ -116,7 +126,7 @@ ssh -i <github-user>-key.pem ubuntu@<ip-publica-instancia-ec2>
 chmod 400 <github-user>-key.pem
 ```
 
-### Parte V. Configurar conexión desde instancia EC2 en AWS hacia GitHub mediante SSH Key
+### Paso V. Configurar conexión desde instancia EC2 en AWS hacia GitHub mediante SSH Key
 
 En la instancia EC2 genera un par de claves SSH:
 
@@ -143,7 +153,7 @@ ssh -T git@github.com
 Hi <github-user>! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-### Parte VI. Instalalación y configuración del repositorio en la instancia EC2, configuración servicio Systemd y configuración de Security Group de AWS
+### Paso VI. Instalalación y configuración del repositorio en la instancia EC2, configuración servicio Systemd y configuración de Security Group de AWS
 
 En tu equipo, desde un navegador web, accede a la web de GitHub y loguéate con tu usuario, accede al repositorio de GitHub `https://github.com/jonaygarciav/app-canarias-experience-py` y haz un `fork` del repositorio: ahora deberías tener un repositorio llamado `app-canarias-experience-py` en tu cuenta de GitHub y puedes acceder a él desde la URL `https://github.com/<github-user>/app-canarias-experience-py`
 
@@ -215,7 +225,7 @@ Para el _tráfico de entrada_:
 
 Ahora, desde tu equipo, abre un navegador web e intenta acceder a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>:5000` y comprueba que se muestra la aplicación.
 
-### Parte VII. Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
+### Paso VII. Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
 
 Ahora desde tu equipo, clona el repositorio `https://github.com/<github-user>/app-canarias-experience-py` en local y ábrelo con Visual Studio Code:
 * Haz cambios en la aplicación añadiendo en el fichero `templates/index.html` un nuevo `card` con su imagen correspondiente, la cual tendrás que almacenar dentro de la carpeta `static/img` ya creada.
@@ -237,7 +247,7 @@ sudo systemctl restart flask-app
 
 Ahora, desde tu equipo, abre un navegador web e intenta acceder a la aplicación a través de la URL  `http://<ip-publica-instancia-ec2>:5000` y comprueba que se muestran los cambios.
 
-### Parte VIII. Automatizar cambios en la instancia EC2 mediante GitHub Actions
+### Paso VIII. Automatizar cambios en la instancia EC2 mediante GitHub Actions
 
 Lecturas recomendadas:
 * [Documentación de GitHub Actions](https://docs.github.com/es/actions)
@@ -297,7 +307,7 @@ Confirma que los cambios en el repositorio activan el despliegue automático en 
 
 Accede a la aplicación a través de la URL `http://<ip-publica-instancia-ec2>:5000` y comprueba que se muestran los cambios.
 
-### Parte IX. Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
+### Paso IX. Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
 
 Elimina los siguientes elementos de AWS:
 
