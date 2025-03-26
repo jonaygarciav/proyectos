@@ -10,7 +10,7 @@
 * _Paso VIII_: Instalalación y configuración del repositorio en la instancia EC2, configuración servicio Systemd y configuración de Security Group de AWS
 * _Paso IX_: Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
 * _Paso X_: Automatizar cambios en la instancia EC2 mediante GitHub Actions
-* _Paso XI: Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
+* _Paso XI_: Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
 
 ## Descripción
 
