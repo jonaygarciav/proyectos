@@ -9,7 +9,7 @@
 * _Paso VII_: Configurar conexión desde instancia EC2 en AWS hacia GitHub mediante SSH Key
 * _Paso VIII_: Instalalación y configuración del repositorio en la instancia EC2, configuración servicio Systemd y configuración de Security Group de AWS
 * _Paso IX_: Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
-* _Paso X_: Automatizar cambios en la instancia EC2 mediante GitHub Actions
+* _Paso X_: Automatizar cambios en el repositorio de la instancia EC2 cada vez que subimos un commit al repositorio remoto mediante GitHub Actions
 * _Paso XI_: Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
 
 ## Descripción
@@ -156,6 +156,8 @@ Lecturas recomendadas:
 * [Introducción a Amazon EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
 * [Tipos de instancias de Amazon EC2](https://aws.amazon.com/es/ec2/instance-types/)
 
+![][04]
+
 En la consola web de AWS crea una instancia RDS de MySQL llamada `<github-user>-mysql` utilizando la capa gratuita de AWS:
 
 | Tipo           | vCPU | RAM | Disco |
@@ -164,7 +166,7 @@ En la consola web de AWS crea una instancia RDS de MySQL llamada `<github-user>-
 
 Aspectos a tener en cuenta:
 
-* Elije la plantilla `capa gratuita`
+* Elige la plantilla `capa gratuita`
 * Master username: `contactos_user`
 * Password: elige un password para la base de datos y apúntalo
 * Configura la instancia a `db.t4g.micro`
@@ -224,7 +226,7 @@ En la consola de GitHub, en nuestro perfil, en el menú _Settings → SSH and GP
 * __Key Type__: `Authentication Key`
 * __Key__: contenido del fichero `/home/ubuntu/.ssh/id_rsa.pub` de la instancia EC2.
 
-![][04]
+![][05]
 
 __Nota__: para ver el contenido del fichero `/home/ubuntu/.ssh/id_rsa.pub` de la instancia EC2 puedes usar el comando `cat`.
 
@@ -415,7 +417,7 @@ sudo systemctl restart flask-app
 
 Ahora, desde tu equipo, abre un navegador web e intenta acceder a la aplicación a través de la URL  `http://<ip-publica-instancia-ec2>:5000` y comprueba que se muestran los cambios.
 
-### Paso X. Automatizar cambios en la instancia EC2 mediante GitHub Actions
+### Paso X. Automatizar cambios en el repositorio de la instancia EC2 cada vez que subimos un commit al repositorio remoto mediante GitHub Actions
 
 Lecturas recomendadas:
 * [Documentación de GitHub Actions](https://docs.github.com/es/actions)
@@ -431,7 +433,7 @@ En la consola de GitHub, accede al repositorio `https://github.com/<github-user>
 * __EC2_HOST__: `IP pública de la instancia EC2`.
 * __EC2_USER__: usuario `ubuntu`.
 
-![][05]
+![][06]
 
 Ahora en tu equipo, a través de Visual Studio Code crea el archivo `.github/workflows/deploy.yml` dentro de tu copia del repositorio en local con el siguiente contenido:
 
@@ -493,8 +495,9 @@ Elimina las siguientes claves SSH de GitHub:
 
 * En la cuenta personal, en el menú _Settings → SSH and GPG Keys_, eliminar la clave SSH `ubuntu@<ip-publica-instancia-ec2>`
 
-[01]: ./img/aws-ec2-v1/ec2-par-de-claves.png "01"
-[02]: ./img/aws-ec2-v1/ec2-security-group.png "02"
-[03]: ./img/aws-ec2-v1/ec2-instancia.png "03"
-[04]: ./img/aws-ec2-v1/github-ssh-key.png "04"
-[05]: ./img/aws-ec2-v1/github-secrets.png "05"
+[01]: ../img/aws/ec2-par-de-claves.png "01"
+[02]: ../img/aws/ec2-security-group.png "02"
+[03]: ../img/aws/ec2-instancia.png "03"
+[04]: ../img/aws/rds.png "04"
+[05]: ../img/github/ssh-key.png "05"
+[06]: ../img/github/secrets.png "06"

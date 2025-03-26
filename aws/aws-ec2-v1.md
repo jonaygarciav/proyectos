@@ -323,8 +323,8 @@ Elimina las siguientes claves SSH de GitHub:
 
 * En la cuenta personal, en el menú _Settings → SSH and GPG Keys_, eliminar la clave SSH `ubuntu@<ip-publica-instancia-ec2>`
 
-[01]: ./img/aws-ec2-v1/ec2-par-de-claves.png "01"
-[02]: ./img/aws-ec2-v1/ec2-security-group.png "02"
-[03]: ./img/aws-ec2-v1/ec2-instancia.png "03"
-[04]: ./img/aws-ec2-v1/github-ssh-key.png "04"
-[05]: ./img/aws-ec2-v1/github-secrets.png "05"
+[01]: ../img/aws/ec2-par-de-claves.png "01"
+[02]: ../img/aws/ec2-security-group.png "02"
+[03]: ../img/aws/ec2-instancia.png "03"
+[04]: ../img/github/ssh-key.png "04"
+[05]: ../img/github/secrets.png "05"
