@@ -7,7 +7,7 @@
 * _Paso V_: Configurar conexión desde instancia EC2 en AWS hacia GitHub mediante SSH Key
 * _Paso VI_: Instalalación y configuración del repositorio en la instancia EC2, configuración servicio Systemd y configuración de Security Group de AWS
 * _Paso VII_: Realizar cambios en el repositorio y subirlos manualmente a la instancia EC2
-* _Paso VIII_: Automatizar cambios en la instancia EC2 mediante GitHub Actions
+* _Paso VIII_: Automatizar cambios en el repositorio de la instancia EC2 cada vez que subimos un commit al repositorio remoto mediante GitHub Actions
 * _Paso IX_: Borrar Instancia EC2, Security Group, Key Pair y Repositorio de GitHub
 
 ## Descripción
@@ -247,7 +247,7 @@ sudo systemctl restart flask-app
 
 Ahora, desde tu equipo, abre un navegador web e intenta acceder a la aplicación a través de la URL  `http://<ip-publica-instancia-ec2>:5000` y comprueba que se muestran los cambios.
 
-### Paso VIII. Automatizar cambios en la instancia EC2 mediante GitHub Actions
+### Paso VIII. Automatizar cambios en el repositorio de la instancia EC2 cada vez que subimos un commit al repositorio remoto mediante GitHub Actions
 
 Lecturas recomendadas:
 * [Documentación de GitHub Actions](https://docs.github.com/es/actions)
