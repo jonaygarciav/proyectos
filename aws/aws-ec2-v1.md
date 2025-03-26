@@ -249,9 +249,9 @@ En la consola web de GitHub crea secretos en el repositorio `https://github.com/
 
 En la consola de GitHub, accede al repositorio `https://github.com/<github-user>/app-canarias-experience-py`, en el menú del repositorio _Settings → Secrets and variables → Actions → Repository secrets_, crea  los siguientes _Repository Secrets_:
 
-* __EC2_SSH_KEY__: con el contenido del fichero `<github-user>-key.pem`.
-* __EC2_HOST__: la `IP pública de la instancia EC2`.
-* __EC2_USER__: el usuario `ubuntu`.
+* __EC2_SSH_KEY__: contenido del fichero `<github-user>-key.pem`.
+* __EC2_HOST__: `IP pública de la instancia EC2`.
+* __EC2_USER__: usuario `ubuntu`.
 
 ![][05]
 
