@@ -140,9 +140,9 @@ Para permitir el acceso por SSH desde la instancia RDS de MySQL a la instancia E
 
 Para el _tráfico de entrada_:
 
-| Tipo  | Protocolo | Puerto  | Origen    | Descripción             |
-|-------|-----------|---------|-----------|-------------------------|
-| SSH   | TCP       | 22      | 0.0.0.0/0 | Acceso por SSH          |
+| Tipo           | Protocolo | Puerto | Origen                         | Descripción    |
+|----------------|-----------|--------|--------------------------------|----------------|
+| Personalizado  | TCP       | 3306   | `<ip-private-instancia-ec2/32` | Acceso a MySQL |
 
 Para el _tráfico de salida_:
 
@@ -291,14 +291,6 @@ sudo systemctl daemon-reload
 
 sudo systemctl enable flask-app
 ```
-
-Para poder acceder a la instancia RDS de MySQL desde la instancia EC2, en la consola web de AWS debes añadir al __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-ec2-sg` la siguiente regla:
-
-Para el _tráfico de entrada_:
-
-| Tipo           | Protocolo | Puerto | Origen                         | Descripción    |
-|----------------|-----------|--------|--------------------------------|----------------|
-| Personalizado  | TCP       | 3306   | `<ip-private-instancia-ec2/32` | Acceso a MySQL |
 
 En la instancia EC2 carga el fichero `seed.sql` en la Base de Datos MySQL:
 
