@@ -6,5 +6,5 @@
 
 ## AWS
 
-* [AWS EC2 v1](./aws/aws-ec2-v1.md)
-* [AWS EC2 RDS v1](./aws/aws-ec2-rds-v1.md)
+* [AWS EC2 (versión 1)](./aws/aws-ec2-v1.md)
+* [AWS EC2 (versión 1)](./aws/aws-ec2-rds-v1.md)
