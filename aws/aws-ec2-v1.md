@@ -86,8 +86,6 @@ Para el _tráfico de salida_:
 |-------|----------|---------|-------------|-------------------------|
 | ALL   | ALL      | ALL     | `0.0.0.0/0` | Acceso hacia fuera      |
 
-* __Nota__: para crear un _Security Group_ debes hacerlo desde la configuración _VPC_ en AWS.
-
 * __Nota__: sustituye `<github-user>` por tu nombre de usuario de _GitHub_.
 
 ### Paso IV. Creación de una instancia EC2 en AWS
