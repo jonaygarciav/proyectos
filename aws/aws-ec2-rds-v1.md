@@ -290,14 +290,14 @@ sudo systemctl daemon-reload
 sudo systemctl enable flask-app
 ```
 
-En la instancia EC2 carga el fichero `flask-app/seed.sql` en la Base de Datos MySQL:
+En la instancia EC2, en el directorio `flask-app`, carga el fichero `seed.sql` en la instancia RDS de MySQL:
 
 ```bash
 cd /home/ubuntu/flask-app
 mysql -h <github-user>-db.c18o4wyiy79q.us-east-1.rds.amazonaws.com -u contactos_user -p < seed.sql
 ```
 
-En la instancia EC2, comprueba que el fichero `seed.sql` se ha cargado correctamente:
+En la instancia EC2, conéctate a la instancia RDS de MySQL y comprueba que el fichero `seed.sql` se ha cargado correctamente:
 
 ```sql
 mysql -h <github-user>-db.c18o4wyiy79q.us-east-1.rds.amazonaws.com -u contactos_user -p
@@ -357,7 +357,7 @@ mysql> select * from contacto;
 10 rows in set (0.00 sec)
 ```
 
-En la instancia EC2, en el directorio  `flask-app` crea un fichero llamado `.env` que contenga los parámetros de conexión a Base de Datos. Utiliza el fichero `.env.example` que se encuentra dentro del repositorio como referencia:
+En la instancia EC2, en el directorio  `flask-app` crea un fichero llamado `.env` que contenga los parámetros de conexión a la instancia RDS de MySQL. Utiliza el fichero `.env.example` que se encuentra dentro del repositorio como referencia:
 
 * __DB_USER__: `contactos_user`
 * __DB_PASSWORD__: password del usuario `contactos_user`
@@ -371,7 +371,7 @@ En la instancia EC2 arranca la aplicación:
 sudo systemctl start flask-app
 ```
 
-En la instancia EC2, dentro del directorio `flask-app` ejecuta el test `test_app.py` para probar la conectividad con la Base de Datos:
+En la instancia EC2, dentro del directorio `flask-app` ejecuta el test `test_app.py` para probar la conectividad a la instancia RDS de MySQL:
 
 ```bash
 python3 test_app.py
