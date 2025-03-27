@@ -359,7 +359,13 @@ mysql> select * from contacto;
 10 rows in set (0.00 sec)
 ```
 
-En la instancia EC2, en el fichero `flask-app/config.py`, configura los parámetros de conexión a la instancia RDS de MySQL.
+En la instancia EC2, en el directorio  `flask-app` crea un fichero llamado `.env` que contenga los parámetros de conexión a Base de Datos. Utiliza el fichero `.env.example` que se encuentra dentro del repositorio como referencia:
+
+* __DB_USER__: `contactos_user`
+* __DB_PASSWORD__: password del usuario `contactos_user`
+* __DB_HOST__: `endpoint de la instancia RDS de MySQL`
+* __DB_PORT__: `3306`
+* __DB_NAME__: `contactos_db`
 
 En la instancia EC2 arranca la aplicación:
 
@@ -367,16 +373,16 @@ En la instancia EC2 arranca la aplicación:
 sudo systemctl start flask-app
 ```
 
+En la instancia EC2, dentro del directorio `flask-app` ejecuta el test `test_app.py` para probar la conectividad con la Base de Datos:
+
+```bash
+python3 test_app.py
+```
+
 En la instancia EC2 comprueba que la aplicación se haya levantado correctamente:
 
 ```bash
 curl http://localhost:5000
-```
-
-En la instancia EC2 lanza el siguiente test, debería devolverte que existen 10 usuarios en base de datos:
-
-```bash
-python3 test.py
 ```
 
 Para poder acceder a la aplicación de la instancia EC2, en la consola web de AWS debes añadir al __Grupo de Seguridad__ (_Security Group_) llamado `<github-user>-ec2-sg` la siguiente regla:
